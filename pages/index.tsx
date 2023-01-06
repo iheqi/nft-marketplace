@@ -1,7 +1,11 @@
+import BaseLayout from '../components/layout/BaseLayout'
+
 export default function Home() {
   return (
-    <div>
-      Hello World
-    </div>
+    <BaseLayout>
+      <div>
+        Hello World
+      </div>
+    </BaseLayout>
   )
 }

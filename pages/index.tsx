@@ -10,6 +10,18 @@ import { useWeb3 } from '../components/providers/web3';
 const Home: NextPage = () => {
   const { ethereum, provider, isLoading, contract } = useWeb3();
 
+  console.log(ethereum);
+  console.log(provider);
+
+  const getAccounts = async () => {
+    const accounts = await provider!.listAccounts();
+    console.log("accounts:", accounts);
+  }
+
+  if (provider) {
+    getAccounts();
+  }
+
   return (
     <BaseLayout>
       {`Is Loading: ${isLoading}, `}

@@ -12,6 +12,7 @@ const Home: NextPage = () => {
 
   console.log(ethereum);
   console.log(provider);
+  console.log(contract);
 
   const getAccounts = async () => {
     const accounts = await provider!.listAccounts();

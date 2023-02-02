@@ -31,6 +31,11 @@ const Web3Provider: FunctionComponent = ({children}) => {
   )
 }
 
+export function useHooks() {
+  const { hooks } = useWeb3();
+  return hooks;
+}
+
 export function useWeb3() {
   return useContext(Web3Context);
 }

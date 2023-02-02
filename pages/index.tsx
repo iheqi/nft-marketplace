@@ -21,7 +21,6 @@ const Home: NextPage = () => {
 
   const getAccounts = async () => {
     const accounts = await provider!.listAccounts();
-    console.log("accounts:", accounts);
   }
 
   if (provider) {

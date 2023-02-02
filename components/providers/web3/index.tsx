@@ -10,15 +10,27 @@ const Web3Provider: FunctionComponent = ({children}) => {
   useEffect(() => {
     async function initWeb3() {
       // 首先需要手动链接：await window.ethereum.enable()
-      const provider = new ethers.providers.Web3Provider(window.ethereum as any);
-      const contract =  await loadContract("NftMarket", provider);
+      // 处理没有安装 metamask 的情况
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum as any);
+        const contract =  await loadContract("NftMarket", provider);
 
-      setWeb3Api(createWeb3State({
-        ethereum: window.ethereum,
-        provider,
-        contract,
-        isLoading: false
-      }))
+        setWeb3Api(createWeb3State({
+          ethereum: window.ethereum,
+          provider,
+          contract,
+          isLoading: false
+        }))
+      } catch(e: any) {
+        console.error("Please, install web3 wallet");
+        setWeb3Api((api) => {
+          // console.log('api', api); // 为默认state
+          return createWeb3State({
+            ...api as any,
+            isLoading: false,
+          })
+        })
+      }
     }
 
     initWeb3();

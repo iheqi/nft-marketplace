@@ -1,4 +1,6 @@
 // https://blog.csdn.net/lunahaijiao/article/details/108722424 没太懂这个库
+// https://zhuanlan.zhihu.com/p/364605867
+
 import { useEffect } from "react";
 import { CryptoHookFactory } from "@_types/hooks";
 import useSWR from "swr";

@@ -30,6 +30,7 @@ export const hookFactory: AccountHookFactory = ({provider, ethereum, isLoading})
       return account;
     }, {
       revalidateOnFocus: false, // 避免重新加载
+      shouldRetryOnError: false
     }
   )
 
@@ -53,7 +54,6 @@ export const hookFactory: AccountHookFactory = ({provider, ethereum, isLoading})
   const connect = async () => {
     try {
       ethereum?.request({method: "eth_requestAccounts"});
-      console.log('connect success!');
     } catch(e) {
       console.error(e);
     }

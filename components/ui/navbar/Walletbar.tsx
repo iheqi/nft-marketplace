@@ -76,9 +76,6 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
     )
   }
 
-
-  console.log('isInstalled', isInstalled);
-
   if (isInstalled) {
     return (
       <div>

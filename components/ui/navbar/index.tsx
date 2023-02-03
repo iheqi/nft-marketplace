@@ -18,10 +18,6 @@ export default function Navbar() {
   const { account } = useAccount();
   const { network } = useNetwork();
 
-  console.log("Network Name:", network.data);
-  console.log("Is Loading: ", account.isLoading);
-  console.log("Is Installed: ", account.isInstalled);
-
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (

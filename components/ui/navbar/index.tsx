@@ -18,7 +18,7 @@ export default function Navbar() {
   const { account } = useAccount();
   const { network } = useNetwork();
 
-  console.log(network.data);
+  console.log("Network Name:", network.data);
   console.log("Is Loading: ", account.isLoading);
   console.log("Is Installed: ", account.isInstalled);
 

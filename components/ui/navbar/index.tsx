@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { Disclosure, Menu } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { Disclosure } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import ActiveLink from '../link';
-import { useAccount } from '../../hooks/web3';
+import { useAccount, useNetwork } from '../../hooks/web3';
 import Walletbar from './Walletbar';
 
 const navigation = [
@@ -16,7 +16,9 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const { account } = useAccount();
+  const { network } = useNetwork();
 
+  console.log(network.data);
   console.log("Is Loading: ", account.isLoading);
   console.log("Is Installed: ", account.isInstalled);
 

@@ -18,8 +18,8 @@ const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
 }
 
 const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
-  ethereum.removeListener("chainChanged", pageReload);
-  ethereum.removeListener("accountsChanged", handleAccount); // 上面监听的是 handleAccount 返回的函数，这里 remove 就有问题
+  ethereum?.removeListener("chainChanged", pageReload);
+  ethereum?.removeListener("accountsChanged", handleAccount); // 上面监听的是 handleAccount 返回的函数，这里 remove 就有问题
 }
 
 const Web3Context = createContext<Web3State>(createDefaultState());

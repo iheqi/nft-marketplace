@@ -27,6 +27,18 @@ contract("NftMarket", accounts => {
 
       assert.equal(actualTokenURI, tokenURI, "tokenURI is not correctly set");
     })    
+
+    // tokenURI不能重复
+    it("should not be possible to create a NFT with used tokenURI", async () => {
+      try {
+        await _contract.mintToken(tokenURI, {
+          from: accounts[0]
+        })
+      } catch(error) {
+        assert(error, "NFT was minted with previously used tokenURI");
+      }
+    })
+
   })
 
 })

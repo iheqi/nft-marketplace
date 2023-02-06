@@ -15,13 +15,14 @@ contract("NftMarket", accounts => {
     const tokenURI = "https://test.com";
 
     before(async () => {
-      await _contract.mintToken(tokenURI, {
+      await _contract.mintToken(tokenURI, _nftPrice, {
         from: accounts[0]
       })
     })
 
     it("owner of the first token should be address[0]", async () => {
       const owner = await _contract.ownerOf(1);
+      console.log('owner, accounts[0]', owner, accounts[0]);
       assert.equal(owner, accounts[0], "Owner of token is not matching address[0]");
     })
 

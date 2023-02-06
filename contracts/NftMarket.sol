@@ -54,6 +54,10 @@ contract NftMarket is ERC721URIStorage {
     return newTokenId;
   }
 
+  function burnToken(uint tokenId) public {
+    _burn(tokenId);
+  }
+
   function buyNft(
     uint tokenId
   ) public payable {

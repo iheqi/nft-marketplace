@@ -2,6 +2,7 @@ import { MetaMaskInpageProvider } from "@metamask/providers";
 import { Contract, providers, ethers } from "ethers";
 import { setupHooks, Web3Hooks } from "../../hooks/web3/setupHooks";
 import { Web3Dependencies } from "@_types/hooks";
+import { NftMarketContract } from "@_types/nftMarketContract";
 declare global {
   interface Window {
     ethereum: MetaMaskInpageProvider;
@@ -35,7 +36,7 @@ export const createWeb3State = ({
   return {
     ethereum,
     provider,
-    contract,
+    contract: contract as unknown as NftMarketContract,
     isLoading,
     hooks: setupHooks({ethereum, provider, contract, isLoading})
   }

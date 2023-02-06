@@ -15,7 +15,7 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
 
       try {
         // 这句报错时，似乎没有抛出，不容易发现
-        const coreNfts = await contract!.getAllNftsOnSale() as Nft[];
+        const coreNfts = await contract!.getAllNftsOnSale();
       } catch (error) { 
         console.log("error", error);
       }

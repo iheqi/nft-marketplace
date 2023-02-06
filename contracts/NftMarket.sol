@@ -16,6 +16,8 @@ contract NftMarket is ERC721URIStorage {
   Counters.Counter private _listedItems; // 上架的nft数量
   Counters.Counter private _tokenIds;
 
+  uint public listingPrice = 0.025 ether;
+
   mapping(string => bool) private _usedTokenURIs; // 已有的tokenURI
   mapping(uint => NftItem) private _idToNftItem;
 
@@ -30,7 +32,8 @@ contract NftMarket is ERC721URIStorage {
 
   function mintToken(string memory tokenURI, uint price) public payable returns (uint) {
     require(!tokenURIExists(tokenURI), "Token URI already exists");
-
+    require(msg.value == listingPrice, "Price must be equal to listing price");
+    
     _tokenIds.increment();
     _listedItems.increment();
 

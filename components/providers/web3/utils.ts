@@ -56,6 +56,7 @@ export const loadContract = async (
   const res = await fetch(`/contracts/${name}.json`);
   const Artifact = await res.json();
 
+  // 根据合约地址加载合约
   if (Artifact.networks[NETWORK_ID].address) {
     const contract = new ethers.Contract(
       Artifact.networks[NETWORK_ID].address,

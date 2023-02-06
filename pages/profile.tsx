@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import type { NextPage } from 'next'
-import { BaseLayout } from '@ui'
+import { BaseLayout } from '../components'
 
 import nfts from "../content/meta.json";
 import { NftMeta } from '@_types/nft';

@@ -97,10 +97,9 @@ contract("NftMarket", accounts => {
       assert.equal(totalSupply.toNumber(), 2, "Total supply of token is not correct");
     })
 
-    it("should be able to retreive nft by index", async () => {
+    it("should be able to retrieve nft by index", async () => {
       const nftId1 = await _contract.tokenByIndex(0);
       const nftId2 = await _contract.tokenByIndex(1);
-
 
       assert.equal(nftId1.toNumber(), 1, "Nft id is wrong");
       assert.equal(nftId2.toNumber(), 2, "Nft id is wrong");
@@ -109,6 +108,16 @@ contract("NftMarket", accounts => {
     it("should have one listed NFT", async () => {
       const allNfts = await _contract.getAllNftsOnSale();
       assert.equal(allNfts[0].tokenId, 2, "Nft has a wrong id");
+    })
+
+    it("account[1] should have one owned NFT", async () => {
+      const ownedNfts = await _contract.getOwnedNfts({from: accounts[1]});
+      assert.equal(ownedNfts[0].tokenId, 1, "Nft has a wrong id");
+    })
+
+    it("account[0] should have one owned NFT", async () => {
+      const ownedNfts = await _contract.getOwnedNfts({from: accounts[0]});
+      assert.equal(ownedNfts[0].tokenId, 2, "Nft has a wrong id");
     })
 
   })

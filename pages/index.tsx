@@ -18,7 +18,7 @@ const Home: NextPage = () => {
 
   const { nfts } = useListedNfts();
 
-  console.log(nfts.data);
+  console.log('nfts.data', nfts.data);
 
 
   if (provider) {

@@ -18,7 +18,7 @@ contract NftMarket is ERC721URIStorage {
 
   uint public listingPrice = 0.025 ether;
 
-  uint256[] private _allNfts;
+  uint256[] private _allNfts; // 存储 tokenId
   mapping(uint => uint) private _idToNftIndex;
 
   // 用户拥有的nft: address => mapping(index => tokenId)
@@ -158,7 +158,9 @@ contract NftMarket is ERC721URIStorage {
       _removeTokenFromOwnerEnumeration(from, tokenId);
     }
 
-    if (to != from) {
+    if (to == address(0)) {
+      _removeTokenFromAllTokensEnumeration(tokenId); // burn
+    } else if (to != from) {
       _addTokenToOwnerEnumeration(to, tokenId);
     }
 
@@ -188,6 +190,18 @@ contract NftMarket is ERC721URIStorage {
 
     delete _idToOwnedIndex[tokenId];
     delete _ownedTokens[from][lastTokenIndex];
+  }
+
+  function _removeTokenFromAllTokensEnumeration(uint tokenId) private {
+    uint lastTokenIndex = _allNfts.length - 1;
+    uint tokenIndex = _idToNftIndex[tokenId];
+    uint lastTokenId = _allNfts[lastTokenIndex];
+
+    _allNfts[tokenIndex] = lastTokenId;
+    _idToNftIndex[lastTokenId] = tokenIndex;
+
+    delete _idToNftIndex[tokenId];
+    _allNfts.pop();
   }
 
 }

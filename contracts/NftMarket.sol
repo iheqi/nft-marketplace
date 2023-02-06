@@ -18,6 +18,9 @@ contract NftMarket is ERC721URIStorage {
 
   uint public listingPrice = 0.025 ether;
 
+  uint256[] private _allNfts;
+  mapping(uint => uint) private _idToNftIndex;
+
   mapping(string => bool) private _usedTokenURIs; // 已有的tokenURI
   mapping(uint => NftItem) private _idToNftItem;
 
@@ -46,7 +49,7 @@ contract NftMarket is ERC721URIStorage {
     
     return newTokenId;
   }
-  
+
   function buyNft(
     uint tokenId
   ) public payable {
@@ -75,6 +78,15 @@ contract NftMarket is ERC721URIStorage {
     return _usedTokenURIs[tokenURI] == true;
   }
 
+  function totalSupply() public view returns (uint) {
+    return _allNfts.length;
+  }
+
+  function tokenByIndex(uint index) public view returns (uint) {
+    require(index < totalSupply(), "Index out of bounds");
+    return _allNfts[index];
+  }
+
   function _createNftItem(
     uint tokenId,
     uint price
@@ -91,5 +103,21 @@ contract NftMarket is ERC721URIStorage {
     emit NftItemCreated(tokenId, price, msg.sender, true);
   }
 
+  function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint tokenId
+  ) internal virtual override {
+    super._beforeTokenTransfer(from, to, tokenId);
 
+    // minting token
+    if (from == address(0)) {
+      _addTokenToAllTokensEnumaration(tokenId);
+    }
+  }
+
+  function _addTokenToAllTokensEnumaration(uint tokenId) private {
+    _idToNftIndex[tokenId] = _allNfts.length;
+    _allNfts.push(tokenId);
+  }
 }

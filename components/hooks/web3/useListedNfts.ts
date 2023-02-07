@@ -3,7 +3,9 @@ import useSWR from "swr";
 import { CryptoHookFactory } from "@_types/hooks";
 import { Nft } from "@_types/nft";
 
-type UseListedNftsResponse = {}
+type UseListedNftsResponse = {
+  buyNft: (token: number, value: number) => Promise<void>
+}
 type ListedNftsHookFactory = CryptoHookFactory<any, UseListedNftsResponse>
 
 export type UseListedNftsHook = ReturnType<ListedNftsHookFactory>
@@ -40,8 +42,26 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
       return nfts;
     }
   )
+
+  const buyNft = async (tokenId: number, value: number) => {
+    try {
+      // ganache bug: 'message': 'invalid remainder', 'code': -32000
+      // 重启了一下好了
+      await contract?.buyNft(
+        tokenId, {
+          value: ethers.utils.parseEther(value.toString())
+        }
+      )
+
+      alert("You have bought Nft. See profile page.")
+    } catch (e: any) {
+      console.error("buyNft error:", e.message);
+    }
+  }
+
   return {
     ...swr,
+    buyNft,
     data: data || [],
   };
 }

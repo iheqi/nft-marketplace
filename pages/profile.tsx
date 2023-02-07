@@ -22,6 +22,8 @@ const Profile: NextPage = () => {
     if (nfts.data && nfts.data.length > 0) {
       setActiveNft(nfts.data[0]);
     }
+
+    return () => setActiveNft(undefined)
   }, [nfts.data]);
 
   return (
@@ -66,11 +68,11 @@ const Profile: NextPage = () => {
                     {(nfts.data as Nft[]).map((nft) => (
                       <li
                         key={nft.tokenId}
-                        onClick={() => {}}
+                        onClick={() => setActiveNft(nft)}
                         className="relative">
                         <div
                           className={classNames(
-                            true
+                            nft.tokenId === activeNft?.tokenId
                               ? 'ring-2 ring-offset-2 ring-indigo-500'
                               : 'focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500',
                             'group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden'
@@ -80,12 +82,12 @@ const Profile: NextPage = () => {
                             src={nft.meta.image}
                             alt=""
                             className={classNames(
-                              true ? '' : 'group-hover:opacity-75',
+                              nft.tokenId === activeNft?.tokenId ? '' : 'group-hover:opacity-75',
                               'object-cover pointer-events-none'
                             )}
                           />
                           <button type="button" className="absolute inset-0 focus:outline-none">
-                            <span className="sr-only">View details for {nft.name}</span>
+                            <span className="sr-only">View details for {nft.meta.name}</span>
                           </button>
                         </div>
                         <p className="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">

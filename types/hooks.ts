@@ -10,6 +10,10 @@ export type Web3Dependencies = {
   isLoading: boolean;
 }
 
+// D: Dependencies
+// R: Response
+// P: Param
+
 export type CryptoHookFactory<D = any, R = any, P = any> = {
   (d: Partial<Web3Dependencies>): CryptoHandlerHook<D, R, P>
 }

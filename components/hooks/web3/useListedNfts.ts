@@ -47,11 +47,13 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
     try {
       // ganache bug: 'message': 'invalid remainder', 'code': -32000
       // 重启了一下好了
-      await contract?.buyNft(
+      const result = await contract?.buyNft(
         tokenId, {
           value: ethers.utils.parseEther(value.toString())
         }
       )
+      
+      await result?.wait();
 
       alert("You have bought Nft. See profile page.")
     } catch (e: any) {

@@ -2,6 +2,7 @@
 
 import type { NextPage } from 'next'
 import { ChangeEvent, useState } from 'react';
+import axios from 'axios';
 import { BaseLayout } from '../../components'
 import { Switch } from '@headlessui/react'
 import Link from 'next/link'
@@ -39,8 +40,13 @@ const NftCreate: NextPage = () => {
     })
   }
 
-  const createNft = () => {
-    console.log(nftMeta);
+  const createNft = async () => {
+    try {
+      const messageToSign = await axios.get("/api/verify");
+      console.log('messageToSign', messageToSign);
+    } catch (e: any) {
+      console.error(e.message);
+    }
   }
 
   return (

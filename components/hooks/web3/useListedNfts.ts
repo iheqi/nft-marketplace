@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import useSWR from "swr";
+import { useCallback } from "react";
 import { CryptoHookFactory } from "@_types/hooks";
 import { Nft } from "@_types/nft";
 
@@ -43,23 +44,24 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
     }
   )
 
-  const buyNft = async (tokenId: number, value: number) => {
+  const _contract = contract;
+  const buyNft = useCallback(async (tokenId: number, value: number) => {
     try {
       // ganache bug: 'message': 'invalid remainder', 'code': -32000
       // 重启了一下好了
-      const result = await contract?.buyNft(
+      const result = await _contract?.buyNft(
         tokenId, {
           value: ethers.utils.parseEther(value.toString())
         }
       )
-      
+
       await result?.wait();
 
       alert("You have bought Nft. See profile page.")
     } catch (e: any) {
       console.error("buyNft error:", e.message);
     }
-  }
+  }, [_contract])
 
   return {
     ...swr,

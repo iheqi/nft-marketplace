@@ -3,16 +3,18 @@
 import type { NextPage } from 'next'
 import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
-import { BaseLayout } from '../../components'
-import { Switch } from '@headlessui/react'
-import Link from 'next/link'
+import { BaseLayout } from '../../components';
+import { Switch } from '@headlessui/react';
+import Link from 'next/link';
+import { useWeb3 } from '../../components/providers/web3';
 
 import { NftMeta } from '@_types/nft';
 
 const NftCreate: NextPage = () => {
+  const {ethereum} = useWeb3();
+
   const [nftURI, setNftURI] = useState("");
   const [hasURI, setHasURI] = useState(false);
-
   const [nftMeta, setNftMeta] = useState<NftMeta>({
     name: "",
     description: "",
@@ -43,7 +45,16 @@ const NftCreate: NextPage = () => {
   const createNft = async () => {
     try {
       const messageToSign = await axios.get("/api/verify");
-      console.log('messageToSign', messageToSign);
+      const accounts = await ethereum?.request({ method: "eth_requestAccounts" }) as string[];
+      const account = accounts[0];
+
+      // https://docs.metamask.io/guide/signing-data.html
+      const signedData = await ethereum?.request({
+        method: "personal_sign",
+        params: [JSON.stringify(messageToSign.data), account, messageToSign.data.id]
+      })
+
+      console.log(signedData);
     } catch (e: any) {
       console.error(e.message);
     }

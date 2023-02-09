@@ -50,7 +50,7 @@ export const hookFactory: AccountHookFactory = ({provider, ethereum, isLoading})
     }
   }
 
-
+  // https://docs.metamask.io/guide/rpc-api.html#eth-requestaccounts
   const connect = async () => {
     try {
       ethereum?.request({method: "eth_requestAccounts"});

@@ -139,7 +139,6 @@ const NftCreate: NextPage = () => {
       //   }
       // })
 
-      // alert("Can create NFT");
       const tx = await contract?.mintToken(
         nftURI,
         ethers.utils.parseEther(price), 
@@ -157,7 +156,6 @@ const NftCreate: NextPage = () => {
           error: "Metadata upload error"
         }
       );
-      alert("Nft was created!");
     } catch(e: any) {
       console.error(e.message);
     }

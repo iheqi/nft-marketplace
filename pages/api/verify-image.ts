@@ -37,6 +37,7 @@ export default withSession(async (
     // https://docs.pinata.cloud/pinata-api/pinning/pin-file-or-directory
     // 1.同一张图片其他人上传，得到的 IpfsHash 是一样的
     // 2.同一个人上传同一张图片，会返回 isDuplicate: true 
+    // 3.可以在网站中移除文件。当然，只是从你的列表中移除展示，文件是永久存储的。(再次上传相同图片时，IpfsHash 也是一样)
     
     const fileRes = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
       maxBodyLength: Infinity,

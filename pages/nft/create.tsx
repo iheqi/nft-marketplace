@@ -9,11 +9,12 @@ import Link from 'next/link';
 import { useWeb3 } from '../../components/providers/web3';
 
 import { NftMeta, PinataRes } from '@_types/nft';
+import { ethers } from 'ethers';
 
 const ALLOWED_FIELDS = ["name", "description", "image", "attributes"];
 
 const NftCreate: NextPage = () => {
-  const {ethereum} = useWeb3();
+  const {ethereum, contract} = useWeb3();
 
   const [nftURI, setNftURI] = useState("");
   const [hasURI, setHasURI] = useState(false);
@@ -112,16 +113,26 @@ const NftCreate: NextPage = () => {
   const createNft = async () => {
     console.log('price', price);
     try {
-      const nftRes = await axios.get(nftURI);
-      const content = nftRes.data;
+      // const nftRes = await axios.get(nftURI); // cors报错，先注释
+      // const content = nftRes.data;
 
-      Object.keys(content).forEach(key => {
-        if (!ALLOWED_FIELDS.includes(key)) {
-          throw new Error("Invalid Json structure");
+      // Object.keys(content).forEach(key => {
+      //   if (!ALLOWED_FIELDS.includes(key)) {
+      //     throw new Error("Invalid Json structure");
+      //   }
+      // })
+
+      // alert("Can create NFT");
+      const tx = await contract?.mintToken(
+        nftURI,
+        ethers.utils.parseEther(price), 
+        {
+          value: ethers.utils.parseEther(0.025.toString())
         }
-      })
+      );
 
-      alert("Can create NFT");
+      await tx?.wait();
+      alert("Nft was created!");
     } catch(e: any) {
       console.error(e.message);
     }

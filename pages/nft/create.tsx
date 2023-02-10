@@ -17,6 +17,7 @@ const NftCreate: NextPage = () => {
 
   const [nftURI, setNftURI] = useState("");
   const [hasURI, setHasURI] = useState(false);
+  const [price, setPrice] = useState("");
   const [nftMeta, setNftMeta] = useState<NftMeta>({
     name: "",
     description: "",
@@ -109,6 +110,7 @@ const NftCreate: NextPage = () => {
   }
 
   const createNft = async () => {
+    console.log('price', price);
     try {
       const nftRes = await axios.get(nftURI);
       const content = nftRes.data;
@@ -199,6 +201,8 @@ const NftCreate: NextPage = () => {
                       </label>
                       <div className="mt-1 flex rounded-md shadow-sm">
                         <input
+                          onChange={(e) => setPrice(e.target.value)}
+                          value={price}
                           type="number"
                           name="price"
                           id="price"

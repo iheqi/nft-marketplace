@@ -49,10 +49,17 @@ const NftCreate: NextPage = () => {
     const file = e.target.files[0];
     const buffer = await file.arrayBuffer();
     const bytes = new Uint8Array(buffer);
-    
+
     try {
       const {signedData, account} = await getSignedData();
-
+      
+      await axios.post("/api/verify-image", {
+        address: account,
+        signature: signedData,
+        bytes,
+        contentType: file.type,
+        fileName: file.name.replace(/\.[^/.]+$/, "")
+      });
     } catch(e: any) {
       console.error(e.message);
     }

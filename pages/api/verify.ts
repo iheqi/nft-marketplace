@@ -4,7 +4,7 @@ import { Session } from "next-iron-session";
 import { NextApiRequest, NextApiResponse } from "next";
 import { withSession, contractAddress, addressCheckMiddleware } from "./utils";
 import { NftMeta } from "@_types/nft";
-import pinataConfig from "../../../pinata.config.js";
+// import pinataConfig from "../../../pinata.config.js";
 
 export default withSession(async (req: NextApiRequest & {session: Session}, res: NextApiResponse) => {
   if (req.method === "POST") {
@@ -27,8 +27,8 @@ export default withSession(async (req: NextApiRequest & {session: Session}, res:
         pinataContent: nft
       }, {
         headers: {
-          pinata_api_key: pinataConfig.api_key,
-          pinata_secret_api_key: pinataConfig.api_secret
+          pinata_api_key: process.env.PINATA_API_KEY,
+          pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY
         }
       });
       console.log('jsonRes', jsonRes);

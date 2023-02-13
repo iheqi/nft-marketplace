@@ -64,7 +64,8 @@ export const hookFactory: ListedNftsHookFactory = ({contract}) => () => {
         }
       );
     } catch (e: any) {
-      console.error("buyNft error:", e.message);
+      console.error("buyNft error:", JSON.stringify(e));
+      toast.error(e.reason);
     }
   }, [_contract])
 

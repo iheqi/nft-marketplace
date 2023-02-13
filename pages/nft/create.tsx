@@ -165,7 +165,6 @@ const NftCreate: NextPage = () => {
     }
   }
   
-  console.log('isConnectedToNetwork', network.isConnectedToNetwork);
   if (!network.isConnectedToNetwork) {
     return (
       <BaseLayout>

@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { createContext, FunctionComponent, useContext, useState, useEffect } from "react"
+import { createContext, FunctionComponent, ReactElement, useContext, useState, useEffect } from "react"
 import { createDefaultState, createWeb3State, loadContract, Web3State } from "./utils";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { NftMarketContract } from "@_types/nftMarketContract";
@@ -25,7 +25,11 @@ const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
 
 const Web3Context = createContext<Web3State>(createDefaultState());
 
-const Web3Provider: FunctionComponent = ({children}) => {
+type Props = {
+  children: ReactElement
+}
+
+const Web3Provider: FunctionComponent<Props> = ({children}) => {
   const [web3Api, setWeb3Api] = useState<Web3State>(createDefaultState())
 
   useEffect(() => {

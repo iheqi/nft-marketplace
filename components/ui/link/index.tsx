@@ -5,7 +5,7 @@ import { useRouter } from "next/router"
 type LinkProps = {
   href: string
   children: ReactElement
-  activeClass: string
+  activeClass?: string
 }
 
 const ActiveLink: FunctionComponent<LinkProps> = ({children, ...props}) => {

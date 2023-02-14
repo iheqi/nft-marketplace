@@ -51,7 +51,7 @@ const Web3Provider: FunctionComponent<Props> = ({children}) => {
           isLoading: false
         }))
       } catch(e: any) {
-        console.error("Please, install web3 wallet");
+        console.error("Please, install web3 wallet", JSON.stringify(e));
         setWeb3Api((api) => {
           // console.log('api', api); // 为默认state
           return createWeb3State({

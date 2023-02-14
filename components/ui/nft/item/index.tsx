@@ -12,6 +12,8 @@ function shortifyAddress(address: string) {
   return `0x****${address.slice(-4)}`
 }
 
+const isProd = process.env.NODE_ENV === 'production'
+const imageBaseUrl = isProd ? '/nft-marketplace' : ''
 
 const NftItem: FunctionComponent<NftItemProps> = ({item, buyNft}) => {
   return (
@@ -30,7 +32,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({item, buyNft}) => {
               <div>
                 <img
                   className="inline-block h-9 w-9 rounded-full"
-                  src="/images/default_avatar.png"
+                  src={ imageBaseUrl + '/images/default_avatar.png' }
                   alt=""
                 />
               </div>
@@ -55,7 +57,7 @@ const NftItem: FunctionComponent<NftItemProps> = ({item, buyNft}) => {
               <dd className="order-1 text-xl font-extrabold text-indigo-600">
                 <div className="flex justify-center items-center">
                   {item.price}
-                  <img className="h-6" src="/images/small-eth.webp" alt="ether icon"/>
+                  <img className="h-6" src={ imageBaseUrl + '/images/small-eth.webp' } alt="ether icon"/>
                 </div>
               </dd>
             </div>

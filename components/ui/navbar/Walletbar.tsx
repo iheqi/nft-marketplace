@@ -13,6 +13,8 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+const isProd = process.env.NODE_ENV === 'production'
+const imageBaseUrl = isProd ? '/nft-marketplace' : ''
 
 const Walletbar: FunctionComponent<WalletbarProps> = ({
   isInstalled,
@@ -43,7 +45,7 @@ const Walletbar: FunctionComponent<WalletbarProps> = ({
             <span className="sr-only">Open user menu</span>
             <img
               className="h-8 w-8 rounded-full"
-              src="/images/default_user_image.png"
+              src={ imageBaseUrl + "/images/default_user_image.png" }
               alt=""
             />
           </Menu.Button>

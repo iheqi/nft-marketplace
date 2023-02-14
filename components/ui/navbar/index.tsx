@@ -5,6 +5,9 @@ import ActiveLink from '../link';
 import { useAccount, useNetwork } from '../../hooks/web3';
 import Walletbar from './Walletbar';
 
+const isProd = process.env.NODE_ENV === 'production'
+const imageBaseUrl = isProd ? '/nft-marketplace' : ''
+
 const navigation = [
   { name: 'Marketplace', href: '/', current: true },
   { name: 'Create', href: '/nft/create', current: false }
@@ -39,7 +42,7 @@ export default function Navbar() {
                 <div className="flex-shrink-0 flex items-center">
                   <img
                     className="hidden lg:block h-10 w-auto"
-                    src="/images/page_logo.png"
+                    src={ imageBaseUrl + "/images/page_logo.png" }
                     alt="Workflow"
                   />
                 </div>

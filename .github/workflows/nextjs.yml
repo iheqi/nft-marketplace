@@ -103,6 +103,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
+      - name: test node
+        run: node -v

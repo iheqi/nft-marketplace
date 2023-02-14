@@ -23,6 +23,16 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+# 设置 node 环境变量
+env:
+  ALCHEMY_GOERLI_URL: ${{vars.ALCHEMY_GOERLI_URL}}
+  NEXT_PUBLIC_NETWORK_ID: ${{vars.NEXT_PUBLIC_NETWORK_ID}}
+  NEXT_PUBLIC_PINATA_DOMAIN: ${{vars.NEXT_PUBLIC_PINATA_DOMAIN}}
+  NEXT_PUBLIC_TARGET_CHAIN_ID: ${{vars.NEXT_PUBLIC_TARGET_CHAIN_ID}}
+  PINATA_API_KEY: ${{vars.PINATA_API_KEY}}
+  PINATA_SECRET_API_KEY: ${{vars.PINATA_SECRET_API_KEY}}
+  SECRET_COOKIE_PASSWORD: ${{vars.SECRET_COOKIE_PASSWORD}}
+
 jobs:
   # Build job
   build:

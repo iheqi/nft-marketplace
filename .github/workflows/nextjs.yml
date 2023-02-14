@@ -40,6 +40,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      # 创建 env 文件来设置 node 环境变量  
+      - name: create env file 
+        run: |
+          touch .env.production
+          echo ALCHEMY_GOERLI_URL=${{ vars.ALCHEMY_GOERLI_URL }} >> .env
+          echo NEXT_PUBLIC_NETWORK_ID=${{ vars.NEXT_PUBLIC_NETWORK_ID }} >> .env
+          echo NEXT_PUBLIC_PINATA_DOMAIN=${{ vars.NEXT_PUBLIC_PINATA_DOMAIN }} >> .env
+          echo NEXT_PUBLIC_TARGET_CHAIN_ID=${{ vars.NEXT_PUBLIC_TARGET_CHAIN_ID }} >> .env
+          echo PINATA_API_KEY=${{ vars.PINATA_API_KEY }} >> .env
+          echo PINATA_SECRET_API_KEY=${{ vars.PINATA_SECRET_API_KEY }} >> .env
+          echo SECRET_COOKIE_PASSWORD=${{ vars.SECRET_COOKIE_PASSWORD }} >> .env
       - name: Detect package manager
         id: detect-package-manager
         run: |

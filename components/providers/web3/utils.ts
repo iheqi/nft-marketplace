@@ -42,7 +42,10 @@ export const createWeb3State = ({
   }
 }
 
-const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;;
+const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
+const isProd = process.env.NODE_ENV === 'production'
+const baseUrl = isProd ? '/nft-marketplace' : ''
+
 
 export const loadContract = async (
   name: string,  // NftMarket
@@ -53,7 +56,7 @@ export const loadContract = async (
     return Promise.reject("Network ID is not defined!");
   }
 
-  const res = await fetch(`/contracts/${name}.json`);
+  const res = await fetch(`${baseUrl}/contracts/${name}.json`);
   const Artifact = await res.json();
 
   // 根据合约地址加载合约

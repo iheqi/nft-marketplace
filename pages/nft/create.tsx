@@ -16,6 +16,9 @@ import { ExclamationIcon } from '@heroicons/react/solid';
 
 
 const ALLOWED_FIELDS = ["name", "description", "image", "attributes"];
+const isProd = process.env.NODE_ENV === 'production';
+const baseUrl = isProd ? '/nft-marketplace' : '';
+
 
 const NftCreate: NextPage = () => {
   const {ethereum, contract} = useWeb3();
@@ -36,7 +39,7 @@ const NftCreate: NextPage = () => {
   });
 
   const getSignedData = async () => {
-    const messageToSign = await axios.get("/api/verify");
+    const messageToSign = await axios.get(`${baseUrl}/api/verify`);
     const accounts = await ethereum?.request({method: "eth_requestAccounts"}) as string[];
     const account = accounts[0];
 
@@ -62,7 +65,7 @@ const NftCreate: NextPage = () => {
     try {
       const {signedData, account} = await getSignedData();
 
-      const promise = axios.post("/api/verify-image", {
+      const promise = axios.post(`${baseUrl}/api/verify-image`, {
         address: account,
         signature: signedData,
         bytes,
@@ -109,7 +112,7 @@ const NftCreate: NextPage = () => {
     try {
       const {signedData, account} = await getSignedData();
 
-      const promise = axios.post("/api/verify", {
+      const promise = axios.post(`${baseUrl}/api/verify`, {
         address: account,
         signature: signedData,
         nft: nftMeta

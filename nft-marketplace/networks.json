@@ -1,0 +1,8 @@
+{
+  "goerli": {
+    "NftMartet": {
+      "address": "0xbCe46F12Ee0d85c3adfCE1DA734da3e3184ad30B",
+      "startBlock": 0
+    }
+  }
+}

@@ -14,7 +14,7 @@ function classNames(...classes: string[]) {
 }
 
 const isProd = process.env.NODE_ENV === 'production'
-const imageBaseUrl = isProd ? '/nft-marketplace' : ''
+const imageBaseUrl = isProd && process.env.GITHUB_PAGES ? '/nft-marketplace' : ''
 
 const Walletbar: FunctionComponent<WalletbarProps> = ({
   isInstalled,

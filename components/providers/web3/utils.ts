@@ -44,7 +44,7 @@ export const createWeb3State = ({
 
 const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
 const isProd = process.env.NODE_ENV === 'production'
-const baseUrl = isProd ? '/nft-marketplace' : ''
+const baseUrl = isProd && process.env.GITHUB_PAGES ? '/nft-marketplace' : ''
 
 
 export const loadContract = async (

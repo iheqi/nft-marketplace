@@ -17,7 +17,7 @@ import { ExclamationIcon } from '@heroicons/react/solid';
 
 const ALLOWED_FIELDS = ["name", "description", "image", "attributes"];
 const isProd = process.env.NODE_ENV === 'production';
-const baseUrl = isProd ? '/nft-marketplace' : '';
+const baseUrl = isProd && process.env.GITHUB_PAGES ? '/nft-marketplace' : '';
 
 
 const NftCreate: NextPage = () => {

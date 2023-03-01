@@ -57,6 +57,7 @@ export const addressCheckMiddleware = async (req: NextApiRequest & { session: Se
 
     console.log("address", address);
 
+    // 将签名地址和请求参数地址比较验证，避免有人拿别人的签名来进行请求
     if (address === req.body.address) {
       resolve(message);
     } else {

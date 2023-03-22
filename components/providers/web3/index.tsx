@@ -9,17 +9,20 @@ function pageReload() {
 }
 
 const handleAccount = (ethereum: MetaMaskInpageProvider) => async () => {
-  const isLocked =  !(await ethereum._metamask.isUnlocked()); 
-  if (isLocked) { pageReload(); }
+  pageReload();
+  // const isLocked =  !(await ethereum._metamask.isUnlocked()); 
+  // if (isLocked) { pageReload(); }
 }
 
 const setGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
   ethereum.on("chainChanged", pageReload);
+  ethereum.on("disconnect", pageReload);
   ethereum.on("accountsChanged", handleAccount(ethereum));
 }
 
 const removeGlobalListeners = (ethereum: MetaMaskInpageProvider) => {
   ethereum?.removeListener("chainChanged", pageReload);
+  ethereum?.removeListener("disconnect", pageReload);
   ethereum?.removeListener("accountsChanged", handleAccount); // 上面监听的是 handleAccount 返回的函数，这里 remove 就有问题
 }
 
